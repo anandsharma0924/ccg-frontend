@@ -16,14 +16,14 @@ const AddNotice = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     setLoader(true);
-
+console.log("love ")
     try {
     
       const fields = { title, details };
 
-      await axios.post('http://localhost:5000/api/notice/', fields); // Replace '/api/notice' with your actual API endpoint
+      await axios.post('http://localhost:5000/api/notice/', fields); 
 
-      navigate('/Admin/notices');
+      navigate('Admin/notices');
     } catch (error) {
       setMessage("Network Error");
       setShowPopup(true);

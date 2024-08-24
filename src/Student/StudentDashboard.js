@@ -10,23 +10,20 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import TeacherSideBar from './TeacherSideBar';
+import StudentSideBar from './StudentSideBar';
 import { Navigate, Route, Routes } from 'react-router-dom';
-
+import StudentHomePage from './StudentHomePage';
+// import StudentProfile from './StudentProfile';
+// import StudentSubjects from './StudentSubjects';
+// import ViewStdAttendance from './ViewStdAttendance';
+// import StudentComplain from './StudentComplain';
+import Logout from '../Admin/Logout';
 // import AccountMenu from '../../components/AccountMenu';
-import { AppBar, Drawer } from '../Conponent/styles'
-// import StudentAttendance from '../admin/studentRelated/StudentAttendance';
+import { AppBar, Drawer } from '../Conponent/styles';
 
-// import TeacherClassDetails from './TeacherClassDetails';
-// import TeacherComplain from './TeacherComplain';
-import TeacherHomePage from './TeacherHomePage';
-// import TeacherProfile from './TeacherProfile';
-import Logout from './Logout';
-// import TeacherViewStudent from './TeacherViewStudent';
-// import StudentExamMarks from '../admin/studentRelated/StudentExamMarks';
-
-const TeacherDashboard = () => {
+const StudentDashboard = () => {
     const [open, setOpen] = useState(true);
+
     const toggleDrawer = () => {
         setOpen(!open);
     };
@@ -56,9 +53,9 @@ const TeacherDashboard = () => {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            Teacher Dashboard
+                            Student Dashboard
                         </Typography>
-                   {/*      <AccountMenu />*/}
+                     {/*   <AccountMenu /> */}
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open} sx={open ? styles.drawerStyled : styles.hideDrawer}>
@@ -69,19 +66,28 @@ const TeacherDashboard = () => {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        <TeacherSideBar />
+                        <StudentSideBar />
                     </List>
                 </Drawer>
                 <Box component="main" sx={styles.boxStyled}>
                     <Toolbar />
-                   
+                    <Routes>
+                    <Route path="*" element={<Navigate to="/" />} />
+                      <Route path="/" element={<StudentHomePage />} />
+                        {/*  <Route path="/Student/dashboard" element={<StudentHomePage />} />
+                        <Route path="/Student/profile" element={<StudentProfile />} />
+                        <Route path="/Student/subjects" element={<StudentSubjects />} />
+                        <Route path="/Student/attendance" element={<ViewStdAttendance />} />
+                        <Route path="/Student/complain" element={<StudentComplain />} /> */}
+                        <Route path="/logout" element={<Logout />} />
+                    </Routes>
                 </Box>
             </Box>
         </React.Fragment>
     );
-}
+};
 
-export default TeacherDashboard
+export default StudentDashboard;
 
 const styles = {
     boxStyled: {
@@ -108,4 +114,4 @@ const styles = {
             display: 'none',
         },
     },
-}
+};

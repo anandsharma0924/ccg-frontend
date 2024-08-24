@@ -27,7 +27,7 @@ const ShowNotices = () => {
         };
         fetchNotices();
     }, []);
-console.log("hellooo")
+
     const deleteHandler = async (deleteID, address) => {
         try {
             await axios.delete(`http://localhost:5000/api/notice/all/${address}/${deleteID}`);
@@ -63,7 +63,7 @@ console.log("hellooo")
     const actions = [
         {
             icon: <NoteAddIcon color="primary" />, name: 'Add New Notice',
-            action: () => navigate("/Admin/addnotice")
+            action: () => navigate("Admin/addnotice")
         },
         {
             icon: <DeleteIcon color="error" />, name: 'Delete All Notices',
@@ -82,7 +82,7 @@ console.log("hellooo")
     return (
         <div>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-                <GreenButton variant="contained" onClick={() => navigate("/Admin/addnotice")}>
+                <GreenButton variant="contained" onClick={() => navigate("Admin/addnotice")}>
                     Add Notice
                 </GreenButton>
             </Box>

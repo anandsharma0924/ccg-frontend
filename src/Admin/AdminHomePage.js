@@ -1,6 +1,5 @@
 import { Container, Grid, Paper } from "@mui/material";
-// import SeeNotice from '../../components/SeeNotice';
-// import Students from "../../assets/img1.png";
+
 import Students from "../assets/img1.png";
 import Classes from "../assets/img2.png";
 import Teachers from "../assets/img3.png";
@@ -15,16 +14,21 @@ const AdminHomePage = () => {
   const [sclassesList, setSclassesList] = useState([]);
   const [teachersList, setTeachersList] = useState([]);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const studentsRes = await axios.get(`http://localhost:5000/api/teachers/`); 
-        const classesRes = await axios.get(`http://localhost:5000/api/teachers/`);
+        const studentsRes = await axios.get(
+          `http://localhost:5000/api/teachers/`
+        );
+        const classesRes = await axios.get(
+          `http://localhost:5000/api/teachers/`
+        );
 
-        const teachersRes = await axios.get(`http://localhost:5000/api/teachers/`);
+        const teachersRes = await axios.get(
+          `http://localhost:5000/api/teachers/`
+        );
 
-// console.log(teachersRes , "teachersRes")
+        // console.log(teachersRes , "teachersRes")
         setStudentsList(studentsRes.data);
         setSclassesList(classesRes.data);
         setTeachersList(teachersRes.data);
