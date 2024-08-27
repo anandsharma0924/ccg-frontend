@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, Typography, Avatar } from '@mui/material';
 import axios from 'axios';
 
 const TeacherProfile = () => {
@@ -22,44 +22,82 @@ const TeacherProfile = () => {
 
   if (error) {
     console.error(error);
-    return <div>Error loading profile.</div>;
+    return <ErrorMessage>{error}</ErrorMessage>;
   }
 
   if (!currentUser) {
-    return <div>Loading...</div>;
+    return <LoadingMessage>Loading...</LoadingMessage>;
   }
 
   const teachSclass = currentUser.teachSclass;
-  const teachSubject = currentUser.teachSubject;
+  const teachSubject = currentUser.subject;
   const teachSchool = currentUser.school;
 
   return (
-    <ProfileCard>
-      <ProfileCardContent>
-        <ProfileText>Name: {currentUser.name}</ProfileText>
-        <ProfileText>Email: {currentUser.email}</ProfileText>
-        <ProfileText>Class: {teachSclass.sclassName}</ProfileText>
-        <ProfileText>Subject: {teachSubject.subName}</ProfileText>
-        <ProfileText>School: {teachSchool.schoolName}</ProfileText>
-      </ProfileCardContent>
-    </ProfileCard>
+    <ProfileContainer>
+      <ProfileCard>
+        <AvatarStyled src={currentUser.profileImage || '/default-avatar.png'} alt="Profile Image" />
+        <ProfileCardContent>
+          <ProfileName variant="h5">{currentUser.name}</ProfileName>
+          <ProfileText variant="body1">Email: {currentUser.email}</ProfileText>
+          <ProfileText variant="body1">Subject: {teachSubject}</ProfileText>
+        
+          {/* <ProfileText variant="body1">Class: {teachSclass.sclassName}</ProfileText> */}
+          {/* <ProfileText variant="body1">School: {teachSchool.schoolName}</ProfileText> */}
+        </ProfileCardContent>
+      </ProfileCard>
+    </ProfileContainer>
   );
 };
 
 export default TeacherProfile;
 
+// Styled Components
+const ProfileContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f6f8;
+`;
+
 const ProfileCard = styled(Card)`
-  margin: 20px;
-  width: 400px;
-  border-radius: 10px;
+  width: 360px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  background-color: #ffffff;
+`;
+
+const AvatarStyled = styled(Avatar)`
+  width: 100px;
+  height: 100px;
+  margin: 20px auto 0;
+  border: 4px solid #4caf50;
 `;
 
 const ProfileCardContent = styled(CardContent)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 20px;
+`;
+
+const ProfileName = styled(Typography)`
+  font-weight: 600;
+  margin: 10px 0;
 `;
 
 const ProfileText = styled(Typography)`
-  margin: 10px;
+  margin: 8px 0;
+  color: #6c757d;
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+`;
+
+const LoadingMessage = styled.div`
+  text-align: center;
+  margin-top: 20px;
 `;

@@ -15,9 +15,10 @@ const SeeNotice = () => {
         const result = await axios.get("http://localhost:5000/api/notice/all");
         if (result.data.length > 0) {
           setNoticesList(result.data);
+          console.log(result.data , "result.data")
         } else {
           setResponse(true);
-        }
+        }     
       } catch (err) {
         setError(err.message);
       } finally {
@@ -46,9 +47,9 @@ const SeeNotice = () => {
         : "Invalid Date";
     return {
       title: notice.title,
-      details: notice.details,
+      details: notice.description,
       date: dateString,
-      id: notice._id,
+      id: notice.id,
     };
   });
 

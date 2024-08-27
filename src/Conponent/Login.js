@@ -12,6 +12,8 @@ import {
   Typography,
 } from '@mui/material';
 
+
+
 const Login = ({ role }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -22,6 +24,7 @@ const Login = ({ role }) => {
     e.preventDefault();
     setLoader(true);
 
+    
     let apiUrl = '';
     switch (role) {
       case 'Admin':
@@ -42,6 +45,8 @@ const Login = ({ role }) => {
     try {
       const response = await axios.post(apiUrl, { email, password });
       console.log(response, 'response');
+      const data = response.data.teacher
+      sessionStorage.setItem('data', JSON.stringify(data)); 
 
       // Check if the request was successful and the token is present
       if (response.status === 200 && response.data.token) {

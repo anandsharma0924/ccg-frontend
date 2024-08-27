@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
     CssBaseline,
     Box,
@@ -8,22 +8,13 @@ import {
     Divider,
     IconButton,
 } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import TeacherSideBar from './TeacherSideBar';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import AccountMenu from '../Conponent/AccountMenu';
+import { AppBar, Drawer } from '../Conponent/styles';
 
-// import AccountMenu from '../../components/AccountMenu';
-import { AppBar, Drawer } from '../Conponent/styles'
-// import StudentAttendance from '../admin/studentRelated/StudentAttendance';
-
-// import TeacherClassDetails from './TeacherClassDetails';
-// import TeacherComplain from './TeacherComplain';
-import TeacherHomePage from './TeacherHomePage';
-// import TeacherProfile from './TeacherProfile';
-import Logout from './Logout';
-// import TeacherViewStudent from './TeacherViewStudent';
-// import StudentExamMarks from '../admin/studentRelated/StudentExamMarks';
 
 const TeacherDashboard = () => {
     const [open, setOpen] = useState(true);
@@ -32,7 +23,7 @@ const TeacherDashboard = () => {
     };
 
     return (
-        <React.Fragment>
+        <>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
                 <AppBar open={open} position='absolute'>
@@ -58,7 +49,7 @@ const TeacherDashboard = () => {
                         >
                             Teacher Dashboard
                         </Typography>
-                   {/*      <AccountMenu />*/}
+                        <AccountMenu />
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open} sx={open ? styles.drawerStyled : styles.hideDrawer}>
@@ -75,9 +66,10 @@ const TeacherDashboard = () => {
                 <Box component="main" sx={styles.boxStyled}>
                     <Toolbar />
                    
+                    <Outlet />
                 </Box>
             </Box>
-        </React.Fragment>
+        </>
     );
 }
 

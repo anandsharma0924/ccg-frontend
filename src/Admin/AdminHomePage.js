@@ -9,6 +9,7 @@ import styled from "styled-components";
 import CountUp from "react-countup";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import SeeNotice from "../Conponent/SeeNotice";
 const AdminHomePage = () => {
   const [studentsList, setStudentsList] = useState([]);
   const [sclassesList, setSclassesList] = useState([]);
@@ -18,7 +19,7 @@ const AdminHomePage = () => {
     const fetchData = async () => {
       try {
         const studentsRes = await axios.get(
-          `http://localhost:5000/api/teachers/`
+          `http://localhost:5000/api/student/`
         );
         const classesRes = await axios.get(
           `http://localhost:5000/api/teachers/`
@@ -78,7 +79,7 @@ const AdminHomePage = () => {
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-              {/* <SeeNotice />*/}
+              <SeeNotice />
             </Paper>
           </Grid>
         </Grid>

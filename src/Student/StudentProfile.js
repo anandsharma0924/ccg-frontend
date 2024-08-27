@@ -1,35 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react'
 import styled from 'styled-components';
 import { Card, CardContent, Typography, Grid, Box, Avatar, Container, Paper } from '@mui/material';
-import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const StudentProfile = () => {
-  const [student, setStudent] = useState(null);
-  const [error, setError] = useState(null);
+  const { currentUser, response, error } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    const fetchStudentData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/student/detail/2'); // Update URL as needed
-        setStudent(response.data);
-        console.log(response.data ,"student profile data")
-      } catch (err) {
-        setError(err.message);
-      }
-    };
+  if (response) { console.log(response) }
+  else if (error) { console.log(error) }
 
-    fetchStudentData();
-  }, []);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!student) {
-    return <div>Loading...</div>;
-  }
-
-  const { name, rollNum, className , address ,email ,age } = student;
+  const sclassName = currentUser.sclassName
+  const studentSchool = currentUser.school
 
   return (
     <>
@@ -39,32 +20,38 @@ const StudentProfile = () => {
             <Grid item xs={12}>
               <Box display="flex" justifyContent="center">
                 <Avatar alt="Student Avatar" sx={{ width: 150, height: 150 }}>
-                  {String(name).charAt(0)}
+                  {String(currentUser.name).charAt(0)}
                 </Avatar>
               </Box>
             </Grid>
             <Grid item xs={12}>
               <Box display="flex" justifyContent="center">
                 <Typography variant="h5" component="h2" textAlign="center">
-                  {name}
+                  {currentUser.name}
                 </Typography>
               </Box>
             </Grid>
             <Grid item xs={12}>
               <Box display="flex" justifyContent="center">
                 <Typography variant="subtitle1" component="p" textAlign="center">
-                  Student Roll No: {rollNum}
+                  Student Roll No: {currentUser.rollNum}
                 </Typography>
               </Box>
             </Grid>
             <Grid item xs={12}>
               <Box display="flex" justifyContent="center">
                 <Typography variant="subtitle1" component="p" textAlign="center">
-                  Class: {className}
+                  Class: {sclassName.sclassName}
                 </Typography>
               </Box>
             </Grid>
-            
+            <Grid item xs={12}>
+              <Box display="flex" justifyContent="center">
+                <Typography variant="subtitle1" component="p" textAlign="center">
+                  School: {studentSchool.schoolName}
+                </Typography>
+              </Box>
+            </Grid>
           </Grid>
         </StyledPaper>
         <Card>
@@ -85,22 +72,22 @@ const StudentProfile = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>Email:</strong>{email}
+                  <strong>Email:</strong> john.doe@example.com
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>Age:</strong> {age}
+                  <strong>Phone:</strong> (123) 456-7890
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>Address:</strong> {address}
+                  <strong>Address:</strong> 123 Main Street, City, Country
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>Emergency Contact:</strong> 9722756565
+                  <strong>Emergency Contact:</strong> (987) 654-3210
                 </Typography>
               </Grid>
             </Grid>
@@ -108,10 +95,10 @@ const StudentProfile = () => {
         </Card>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default StudentProfile;
+export default StudentProfile
 
 const StyledPaper = styled(Paper)`
   padding: 20px;

@@ -37,13 +37,13 @@ const SideBar = () => {
                 </ListItemButton>
                 <ListItemButton component={Link} to="Admin/teachers">
                     <ListItemIcon>
-                        <SupervisorAccountOutlinedIcon color={location.pathname.startsWith("/Admin/teachers") ? 'primary' : 'inherit'} />
+                        <SupervisorAccountOutlinedIcon color={location.pathname.startsWith("Admin/teachers") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary="Teachers" />
                 </ListItemButton>
                 <ListItemButton component={Link} to="Admin/students">
                     <ListItemIcon>
-                        <PersonOutlineIcon color={location.pathname.startsWith("/Admin/students") ? 'primary' : 'inherit'} />
+                        <PersonOutlineIcon color={location.pathname.startsWith("Admin/students") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary="Students" />
                 </ListItemButton>
