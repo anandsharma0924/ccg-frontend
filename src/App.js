@@ -25,16 +25,19 @@ import ShowSubjects from "./Admin/subjectRelated/ShowSubjects";
 // import TeacherViewStudent from "./Teacher/TeacherViewStudent";
 // import StudentAttendance from "./Teacher/StudentAttendance";
 // import StudentExamMarks from "./Teacher/StudentExamMarks";
+// import StudentDashboard from "./Student/StudentDashboard";
 import StudentDashboard from "./Student/StudentDashboard";
 import ShowClasses from "./Admin/classRelated/ShowClasses";
 import AdminProfile from "./Admin/AdminProfile";
 import ShowStudents from "./Admin/studentRelated/ShowStudents";
 import ShowTeachers from "./Admin/teacherRelated/ShowTeachers";
-import SeeComplains from './Admin/studentRelated/SeeComplains';
-
+import SeeComplains from "./Admin/studentRelated/SeeComplains";
+import StudentProfile from "./Student/StudentProfile";
+import StudentHomePage from "./Student/StudentHomePage";
+import StudentComplain from "./Student/StudentComplain";
+import StudentSubjects from './Student/StudentSubjects';
 
 function App() {
-  
   return (
     <React.Fragment>
       <Router>
@@ -54,13 +57,11 @@ function App() {
             <Route path="addnotice" element={<AddNotice />} />
             <Route path="Admin/classes" element={<ShowClasses />} />
             <Route path="Admin/complains" element={<SeeComplains />} />
-
             <Route path="Admin/addclass" element={<AddClass />} />
             <Route path="Admin/profile" element={<AdminProfile />} />
             <Route path="Admin/subjects" element={<ShowSubjects />} />
             <Route path="Admin/students" element={<ShowStudents />} />
             <Route path="Admin/teachers" element={<ShowTeachers />} />
-
             {/*<Route path="/Admin/classes/class/:id" element={<ClassDetails />} />*/}
             {/* <Route path="classes" element={<AddClass />} /> */}
             {/* Add other routes as needed */}
@@ -80,7 +81,16 @@ function App() {
           </Route>
 
           {/* StudentDashboard */}
-          <Route path="/Student/dashboard" element={<StudentDashboard />} />
+          <Route path="/Student/dashboard" element={<StudentDashboard />}>
+            <Route index element={<StudentHomePage />} />
+            {/* <Route path="subjects" element={<StudentSubjects />} />
+          <Route path="attendance" element={<StudentAttendance />} />
+          <Route path="complain" element={<StudentComplain />} />*/}
+            <Route path="Student/profile" element={<StudentProfile />} />
+            <Route path="Student/complain" element={<StudentComplain />} />
+<Route path="Student/subjects" element={<StudentSubjects />} />
+
+          </Route>
 
           {/* General Logout route */}
           <Route path="/logout" element={<Logout />} />
@@ -175,7 +185,6 @@ export default App;
 // <Route path="/" element={<StudentHomePage />} />
 // <Route path='*' element={<Navigate to="/" />} />
 // <Route path="/Student/dashboard" element={<StudentHomePage />} />
-// <Route path="/Student/profile" element={<StudentProfile />} />
 
 // <Route path="/Student/subjects" element={<StudentSubjects />} />
 // <Route path="/Student/attendance" element={<ViewStdAttendance />} />

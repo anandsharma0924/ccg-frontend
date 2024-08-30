@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import {
   Paper, Box, Checkbox
 } from '@mui/material';
+import axios from 'axios';
 import TableTemplate from '../../Conponent/TableTemplate';
 
 const SeeComplains = () => {
@@ -10,29 +10,24 @@ const SeeComplains = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [response, setResponse] = useState(null);
-
-  const currentUser = JSON.parse(localStorage.getItem('currentUser')); // Assuming the user is stored in localStorage
+  const currentUser = { _id: 'currentUser_id' }; // Replace this with actual user data
 
   useEffect(() => {
     const fetchComplains = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/complains/Complain`);
-        setComplainsList(res.data);
-        console.log("hello")
-        setLoading(false);
-        setResponse(res.data.length === 0);
+        const { data } = await axios.get(`http://localhost:5000/api/complains/${currentUser._id}`);
+        setComplainsList(data);
+        setResponse(data.length === 0); // Check if there are no complains
       } catch (err) {
-        setError(err.message);
+        setError('Failed to fetch complaints');
+        console.error(err);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchComplains();
-  });
-
-  if (error) {
-    console.log(error);
-  }
+  }, [currentUser._id]);
 
   const complainColumns = [
     { id: 'user', label: 'User', minWidth: 170 },
@@ -40,7 +35,7 @@ const SeeComplains = () => {
     { id: 'date', label: 'Date', minWidth: 170 },
   ];
 
-  const complainRows = complainsList.map((complain) => {
+  const complainRows = complainsList && complainsList.map((complain) => {
     const date = new Date(complain.date);
     const dateString = date.toString() !== "Invalid Date" ? date.toISOString().substring(0, 10) : "Invalid Date";
     return {
@@ -54,30 +49,34 @@ const SeeComplains = () => {
   const ComplainButtonHaver = ({ row }) => {
     return (
       <>
-        <Checkbox />
+        <Checkbox inputProps={{ 'aria-label': 'Checkbox demo' }} />
       </>
     );
   };
 
+  if (error) {
+    return <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>{error}</Box>;
+  }
+
   return (
     <>
-      {loading ?
-        <div>Loading...</div>
-        :
+      {loading ? (
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>Loading...</Box>
+      ) : (
         <>
-          {response ?
+          {response ? (
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
               No Complains Right Now
             </Box>
-            :
+          ) : (
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-              {complainsList.length > 0 &&
+              {complainsList.length > 0 && (
                 <TableTemplate buttonHaver={ComplainButtonHaver} columns={complainColumns} rows={complainRows} />
-              }
+              )}
             </Paper>
-          }
+          )}
         </>
-      }
+      )}
     </>
   );
 };

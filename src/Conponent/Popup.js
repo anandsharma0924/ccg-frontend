@@ -10,7 +10,6 @@ const Popup = ({ message, setShowPopup, showPopup }) => {
     if (reason === 'clickaway') {
       return;
     }
-    console.log(reason , "reasonreasonreasonreason")
     setShowPopup(false);
   };
 

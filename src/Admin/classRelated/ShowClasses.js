@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { BlueButton, GreenButton } from "../../Conponent/buttonStyles";
 import TableTemplate from "../../Conponent/TableTemplate";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
@@ -33,7 +33,9 @@ const ShowClasses = () => {
   useEffect(() => {
     const fetchSclasses = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/notice/all");
+        const response = await axios.get(
+          "http://localhost:5000/api/notice/all"
+        );
         setSclassesList(response.data);
         console.log(response, "response response");
         setGetResponse(true);
@@ -106,8 +108,10 @@ const ShowClasses = () => {
     };
 
     return (
-      <>
-        <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+      <React.Fragment>
+        <Box
+          sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
+        >
           <Tooltip title="Add Students & Subjects">
             <IconButton
               onClick={handleClick}
@@ -142,7 +146,7 @@ const ShowClasses = () => {
             </MenuItem>
           ))}
         </Menu>
-      </>
+      </React.Fragment>
     );
   };
 
@@ -179,6 +183,7 @@ const ShowClasses = () => {
               >
                 Add Class
               </GreenButton>
+              <Outlet/>
             </Box>
           ) : (
             <>

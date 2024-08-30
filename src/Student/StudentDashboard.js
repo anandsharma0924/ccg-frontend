@@ -1,119 +1,110 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Card, CardContent, Typography, Grid, Box, Avatar, Container, Paper } from '@mui/material';
-import axios from 'axios';
+import React, { useState } from 'react';
+import {
+    CssBaseline,
+    Box,
+    Toolbar,
+    List,
+    Typography,
+    Divider,
+    IconButton,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import StudentSideBar from './StudentSideBar';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import StudentHomePage from './StudentHomePage';
+// import StudentProfile from './StudentProfile';
+// import StudentSubjects from './StudentSubjects';
+// import ViewStdAttendance from './ViewStdAttendance';
+// import StudentComplain from './StudentComplain';
+import Logout from '../Admin/Logout';
+// import AccountMenu from '../../components/AccountMenu';
+import { AppBar, Drawer } from '../Conponent/styles';
+import AccountMenu from '../Conponent/AccountMenu';
 
-const StudentProfile = () => {
-  const [student, setStudent] = useState(null);
-  const [error, setError] = useState(null);
+const StudentDashboard = () => {
+    const [open, setOpen] = useState(true);
 
-  useEffect(() => {
-    const fetchStudentData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/student/detail/2'); // Update URL as needed
-        setStudent(response.data);
-        console.log(response.data ,"student profile data")
-      } catch (err) {
-        setError(err.message);
-      }
+    const toggleDrawer = () => {
+        setOpen(!open);
     };
 
-    fetchStudentData();
-  }, []);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!student) {
-    return <div>Loading...</div>;
-  }
-
-  const { name, rollNum, className , address ,email ,age } = student;
-
-  return (
-    <>
-      <Container maxWidth="md">
-        <StyledPaper elevation={3}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Box display="flex" justifyContent="center">
-                <Avatar alt="Student Avatar" sx={{ width: 150, height: 150 }}>
-                  {String(name).charAt(0)}
-                </Avatar>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Box display="flex" justifyContent="center">
-                <Typography variant="h5" component="h2" textAlign="center">
-                  {name}
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Box display="flex" justifyContent="center">
-                <Typography variant="subtitle1" component="p" textAlign="center">
-                  Student Roll No: {rollNum}
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Box display="flex" justifyContent="center">
-                <Typography variant="subtitle1" component="p" textAlign="center">
-                  Class: {className}
-                </Typography>
-              </Box>
-            </Grid>
-            
-          </Grid>
-        </StyledPaper>
-        <Card>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Personal Information
-            </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="subtitle1" component="p">
-                  <strong>Date of Birth:</strong> January 1, 2000
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="subtitle1" component="p">
-                  <strong>Gender:</strong> Male
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="subtitle1" component="p">
-                  <strong>Email:</strong>{email}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="subtitle1" component="p">
-                  <strong>Age:</strong> {age}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="subtitle1" component="p">
-                  <strong>Address:</strong> {address}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="subtitle1" component="p">
-                  <strong>Emergency Contact:</strong> 9722756565
-                </Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-      </Container>
-    </>
-  );
+    return (
+        <React.Fragment>
+            <Box sx={{ display: 'flex' }}>
+                <CssBaseline />
+                <AppBar open={open} position='absolute'>
+                    <Toolbar sx={{ pr: '24px' }}>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={toggleDrawer}
+                            sx={{
+                                marginRight: '36px',
+                                ...(open && { display: 'none' }),
+                            }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography
+                            component="h1"
+                            variant="h6"
+                            color="inherit"
+                            noWrap
+                            sx={{ flexGrow: 1 }}
+                        >
+                            Student Dashboard
+                        </Typography>
+                        <AccountMenu />
+                    </Toolbar>
+                </AppBar>
+                <Drawer variant="permanent" open={open} sx={open ? styles.drawerStyled : styles.hideDrawer}>
+                    <Toolbar sx={styles.toolBarStyled}>
+                        <IconButton onClick={toggleDrawer}>
+                            <ChevronLeftIcon />
+                        </IconButton>
+                    </Toolbar>
+                    <Divider />
+                    <List component="nav">
+                        <StudentSideBar />
+                    </List>
+                </Drawer>
+                <Box component="main" sx={styles.boxStyled}>
+                    <Toolbar />
+                   
+                    <Outlet />
+                </Box>
+            </Box>
+        </React.Fragment>
+    );
 };
 
-export default StudentProfile;
+export default StudentDashboard;
 
-const StyledPaper = styled(Paper)`
-  padding: 20px;
-  margin-bottom: 20px;
-`;
+const styles = {
+    boxStyled: {
+        backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
+    },
+    toolBarStyled: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        px: [1],
+    },
+    drawerStyled: {
+        display: "flex"
+    },
+    hideDrawer: {
+        display: 'flex',
+        '@media (max-width: 600px)': {
+            display: 'none',
+        },
+    },
+};

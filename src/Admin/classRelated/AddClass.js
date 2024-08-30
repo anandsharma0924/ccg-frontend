@@ -14,9 +14,10 @@ const AddClass = () => {
   const navigate = useNavigate();
 
   const submitHandler = async (event) => {
+    
     event.preventDefault();
     setLoader(true);
-
+console.log("my name kiya h")
     try {
       const response = await axios.post("http://localhost:5000/api/class/" , {
         name: className,
