@@ -15,8 +15,9 @@ const SeeComplains = () => {
   useEffect(() => {
     const fetchComplains = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/complains/${currentUser._id}`);
+        const { data } = await axios.get(`http://localhost:5000/api/complain/`);
         setComplainsList(data);
+        console.log(data ,"data data")
         setResponse(data.length === 0); // Check if there are no complains
       } catch (err) {
         setError('Failed to fetch complaints');
@@ -39,9 +40,9 @@ const SeeComplains = () => {
     const date = new Date(complain.date);
     const dateString = date.toString() !== "Invalid Date" ? date.toISOString().substring(0, 10) : "Invalid Date";
     return {
-      user: complain.user.name,
-      complaint: complain.complaint,
-      date: dateString,
+      user: complain.user,
+      complaint: complain.content,
+      date: complain.date,
       id: complain._id,
     };
   });

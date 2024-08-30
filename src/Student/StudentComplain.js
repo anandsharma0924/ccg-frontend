@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   CircularProgress,
@@ -11,7 +11,7 @@ import { BlueButton } from "../Conponent/buttonStyles";
 import axios from "axios";
 
 const StudentComplain = () => {
-  const [complaint, setComplaint] = useState("");
+  const [content, setComplaint] = useState("");
   const [date, setDate] = useState("");
   const [loader, setLoader] = useState(false);
   const [message, setMessage] = useState("");
@@ -19,18 +19,15 @@ const StudentComplain = () => {
 
   const currentUser = {
     _id: "current_user_id", // Replace with actual user data
-    school: { _id: "school_id" }, // Replace with actual school data
   };
 
   const user = currentUser._id;
-  const school = currentUser.school._id;
   const address = "Complain"; // This can be used as part of your API endpoint if necessary
 
   const fields = {
-    user,
+    // user,
     date,
-    complaint,
-    school,
+    content,
   };
 
   const submitHandler = async (event) => {
@@ -38,9 +35,10 @@ const StudentComplain = () => {
     setLoader(true);
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/complains",
+        "http://localhost:5000/api/complain/",
         fields
       );
+      console.log(response , "content")
       if (response.status === 200 || response.status === 201) {
         setMessage("Done Successfully");
       } else {
@@ -56,7 +54,7 @@ const StudentComplain = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <Box
         sx={{
           flex: "1 1 auto",
@@ -94,7 +92,7 @@ const StudentComplain = () => {
                   fullWidth
                   label="Write your complain"
                   variant="outlined"
-                  value={complaint}
+                  value={content}
                   onChange={(event) => {
                     setComplaint(event.target.value);
                   }}
@@ -126,7 +124,7 @@ const StudentComplain = () => {
         setShowPopup={setShowPopup}
         showPopup={showPopup}
       />
-    </>
+    </React.Fragment>
   );
 };
 

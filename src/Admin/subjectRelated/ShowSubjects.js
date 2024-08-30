@@ -45,13 +45,14 @@ const ShowSubjects = () => {
     };
 
     const subjectColumns = [
-        { id: 'subjectName', label: 'Sub Name', minWidth: 170 },
+        { id: 'subjectName', label: 'subject Name', minWidth: 170 },
         { id: 'sessions', label: 'Sessions', minWidth: 170 },
         { id: 'sclassName', label: 'Class', minWidth: 170 },
     ];
 
     const subjectRows = subjectsList.map((subject) => ({
-        subName:subject.subjectName,
+       
+        subjectName: subject.subjectName,
         sessions: subject.session ,
      
     }));

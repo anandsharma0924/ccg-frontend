@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { Paper, Box, IconButton, CircularProgress, Typography } from '@mui/material';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
@@ -63,7 +63,7 @@ const ShowNotices = () => {
     const actions = [
         {
             icon: <NoteAddIcon color="primary" />, name: 'Add New Notice',
-            action: () => navigate("Admin/addnotice")
+            action: () => navigate("addnotice")
         },
         {
             icon: <DeleteIcon color="error" />, name: 'Delete All Notices',
@@ -82,7 +82,7 @@ const ShowNotices = () => {
     return (
         <div>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-                <GreenButton variant="contained" onClick={() => navigate("Admin/addnotice")}>
+                <GreenButton variant="contained" onClick={() => navigate("addnotice" , )}>
                     Add Notice
                 </GreenButton>
             </Box>
@@ -96,8 +96,10 @@ const ShowNotices = () => {
                 )}
                 <SpeedDialTemplate actions={actions} />
             </Paper>
+            <Outlet/>
         </div>
     );
 };
+
 
 export default ShowNotices;

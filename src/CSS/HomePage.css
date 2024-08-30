@@ -248,3 +248,79 @@ a {
 .key{
   color: #1a237e;
 }
+/* General Button Styles */
+button {
+  background-color: #283593; /* Dark blue */
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #1a237e; /* Darker blue */
+  transform: translateY(-2px);
+}
+
+button:focus {
+  outline: none;
+}
+
+button:active {
+  background-color: #1a237e; /* Darker blue */
+  transform: translateY(0);
+}
+
+/* Special Button Styles */
+.cta-button {
+  background-color: #ffca28; /* Golden yellow */
+  color: #283593; /* Dark blue */
+  border-radius: 5px;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: #fbc02d; /* Slightly darker golden yellow */
+  transform: translateY(-2px);
+}
+
+.cta-button:focus {
+  outline: none;
+}
+
+.cta-button:active {
+  background-color: #fbc02d; /* Slightly darker golden yellow */
+  transform: translateY(0);
+}
+
+/* View More Button */
+.view-more-button {
+  background-color: #1a237e; 
+  text-align: center;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.view-more-button:hover {
+  background-color: #283593; /* Dark blue */
+  transform: translateY(-2px);
+}
+
+.view-more-button:focus {
+  outline: none;
+}
+
+.view-more-button:active {
+  background-color: #283593; /* Dark blue */
+  transform: translateY(0);
+}

@@ -15,7 +15,6 @@ const SeeNotice = () => {
         const result = await axios.get("http://localhost:5000/api/notice/all");
         if (result.data.length > 0) {
           setNoticesList(result.data);
-          console.log(result.data , "result.data")
         } else {
           setResponse(true);
         }     

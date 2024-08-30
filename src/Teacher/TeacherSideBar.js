@@ -26,9 +26,9 @@ const TeacherSideBar = ({ currentUser }) => {
                 </ListItemIcon>
                 <ListItemText primary={`Class ${sclassName?.sclassName}`} />
             </ListItemButton>
-            <ListItemButton component={Link} to="/Teacher/complain">
+            <ListItemButton component={Link} to="Teacher/complain">
                 <ListItemIcon>
-                    <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Teacher/complain") ? 'primary' : 'inherit'} />
+                    <AnnouncementOutlinedIcon color={location.pathname.startsWith("Teacher/complain") ? 'primary' : 'inherit'} />
                 </ListItemIcon>
                 <ListItemText primary="Complain" />
             </ListItemButton>

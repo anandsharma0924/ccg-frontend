@@ -40,8 +40,6 @@ import ChooseClass from "./Admin/teacherRelated/ChooseClass";
 import TeacherDetails from "./Admin/teacherRelated/TeacherDetails";
 // import ClassDetails from './classRelated/ClassDetails';
 import ClassDetails from "./Admin/classRelated/ClassDetails";
-import TeacherComplain from "./Teacher/TeacherComplain";
-
 
 function App() {
   return (
@@ -59,12 +57,18 @@ function App() {
           {/* AdminDashboard with child routes */}
           <Route path="/Admin/dashboard/*" element={<AdminDashboard />}>
             <Route index element={<AdminHomePage />} />
-            <Route path="Admin/notices" element={<ShowNotices />} >
-            <Route path="addnotice" element={<AddNotice />} /></Route>
+            <Route path="Admin/notices" element={<ShowNotices />} />
+            <Route path="addnotice" element={<AddNotice />} />
+   
+
             <Route path="Admin/classes" element={<ShowClasses />}>
+            {/*   <Route path="addclass" element={<AddClass />} >
+              <Route path="class/:id" element={<ClassDetails />} />
+              </Route> */}
               <Route path="addclass" element={<AddClass />}>
-                <Route path="class/:id" element={<ClassDetails />} />
-              </Route>
+              {/* Nested Route for Class Details */}
+              <Route path="class/:id" element={<ClassDetails />} /> 
+            </Route>
             </Route>
 
             <Route path="Admin/complains" element={<SeeComplains />} />
@@ -72,6 +76,14 @@ function App() {
             <Route path="Admin/subjects" element={<ShowSubjects />} />
             <Route path="Admin/students" element={<ShowStudents />} />
             <Route path="Admin/teachers" element={<ShowTeachers />} />
+            <Route
+              path="Admin/teachers/teacher/:id"
+              element={<TeacherDetails />}
+            />
+            <Route
+              path="Admin/subjects/chooseclass"
+              element={<ChooseClass situation="Subject" />}
+            />
 
             {/* <Route path="classes" element={<AddClass />} /> */}
             {/* Add other routes as needed */}
@@ -83,16 +95,6 @@ function App() {
           <Route path="/Teacher/dashboard/*" element={<TeacherDashboard />}>
             <Route index element={<TeacherHomePage />} />
             <Route path="Teacher/profile" element={<TeacherProfile />} />
-            <Route
-              path="Admin/teachers/teacher/:id"
-              element={<TeacherDetails />}
-            />
-            <Route
-              path="Admin/subjects/chooseclass"
-              element={<ChooseClass situation="Subject" />}
-            />
-            <Route path="Teacher/complain" element={<TeacherComplain />} />
-
             {/* <Route path="complain" element={<TeacherComplain />} /> */}
             {/* <Route path="class" element={<TeacherClassDetails />} /> */}
             {/* <Route path="class/student/:id" element={<TeacherViewStudent />} /> */}

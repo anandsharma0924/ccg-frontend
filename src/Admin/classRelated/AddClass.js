@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, CircularProgress, Stack, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Popup from "../../Conponent/Popup";
 import Classroom from "../../assets/classroom.png";
@@ -14,28 +14,32 @@ const AddClass = () => {
   const navigate = useNavigate();
 
   const submitHandler = async (event) => {
+    event.preventDefault();  
     
-    event.preventDefault();
-    setLoader(true);
-console.log("my name kiya h")
+    if (loader) return; 
+  
+    setLoader(true);         
+  
     try {
-      const response = await axios.post("http://localhost:5000/api/class/" , {
-        name: className,
+      const response = await axios.post("http://localhost:5000/api/class/", {
+        name: className,     
       });
-
+  console.log(response ,"responseee")
       if (response.status === 201) {
-        navigate(`Admin/classes/class/${response.data._id}`);
+        console.log(response.data);
+        navigate(`class/${response.data.classs.id}`);
       }
     } catch (error) {
       setMessage(error.response?.data?.message || "Network Error");
       setShowPopup(true);
     } finally {
-      setLoader(false);
+      setLoader(false); 
     }
   };
-
+  
   return (
     <React.Fragment>
+
       <StyledContainer>
         <StyledBox>
           <Stack sx={{ alignItems: "center", mb: 3 }}>
@@ -59,6 +63,7 @@ console.log("my name kiya h")
                 type="submit"
                 disabled={loader}
               >
+              
                 {loader ? (
                   <CircularProgress size={24} color="inherit" />
                 ) : (
@@ -71,12 +76,15 @@ console.log("my name kiya h")
             </Stack>
           </form>
         </StyledBox>
+
       </StyledContainer>
       <Popup
         message={message}
         setShowPopup={setShowPopup}
         showPopup={showPopup}
       />
+    <Outlet/>
+
     </React.Fragment>
   );
 };
@@ -95,7 +103,8 @@ const StyledBox = styled(Box)`
   padding: 50px 3rem 50px;
   margin-top: 1rem;
   background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 
+0 0 10px rgba(0, 0, 0, 0.2);
   border: 1px solid #ccc;
   border-radius: 4px;
 `;

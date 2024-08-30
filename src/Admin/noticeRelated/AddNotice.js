@@ -16,7 +16,6 @@ const AddNotice = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     setLoader(true);
-console.log("love ")
     try {
     
       const fields = { title, details };

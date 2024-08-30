@@ -49,7 +49,7 @@ const HomePage = () => {
               Get Started
             </a>
           </div>
-          <div className="slider">
+          <div className="slider , img">
             <img
               src={images[currentImage]}
               alt={`Slide ${currentImage + 1}`}
@@ -61,7 +61,6 @@ const HomePage = () => {
 
         <section id="about" className="about">
           <h2>About Us</h2>
-        
 
           <div class="grid-container ,grid">
             <div class="grid-item">
@@ -108,7 +107,7 @@ const HomePage = () => {
                 Submit student enquiry and manage followup or calling history.
                 Use lead generator page to get enquiry from other platform.
               </p>
-              <button>View More</button>
+       <button className="view-more-button">View More</button>
             </div>
             <div class="grid-item">
               {" "}
@@ -122,7 +121,7 @@ const HomePage = () => {
                 attendance from mobile app or by biometric device. Share
                 assignments with students.
               </p>
-              <button>View More</button>
+       <button className="view-more-button">View More</button>
             </div>
             <div class="grid-item">
               {" "}
@@ -138,7 +137,7 @@ const HomePage = () => {
                 the smart classes system with total security control by screen
                 rights & action rights.
               </p>
-              <button>View More</button>
+       <button className="view-more-button">View More</button>
             </div>
             <div class="grid-item">
               <i
@@ -150,7 +149,7 @@ const HomePage = () => {
                 Create & upload your digital courses in videos or documents
                 format securly & share with students.
               </p>
-              <button>View More</button>
+       <button className="view-more-button">View More</button>
             </div>
             <div class="grid-item">
               {" "}
@@ -167,7 +166,7 @@ const HomePage = () => {
                 on all processes like on registration, attendance, fees, exam
                 and many more.
               </p>
-              <button>View More</button>
+       <button className="view-more-button">View More</button>
             </div>
             <div class="grid-item">
               <i
@@ -180,7 +179,7 @@ const HomePage = () => {
                 header and track your yearly profit and loss. Expense report
                 will help you to control your unnecessary expenses.
               </p>
-              <button>View More</button>
+       <button className="view-more-button">View More</button>
             </div>
             <div class="grid-item">
               <i
@@ -193,7 +192,7 @@ const HomePage = () => {
                 automatically in bulk. Download certificate in pdf format &
                 print the certificate on any printer.
               </p>
-              <button>View More</button>
+       <button className="view-more-button">View More</button>
             </div>
             <div class="grid-item">
               <i
@@ -208,7 +207,7 @@ const HomePage = () => {
                 analyse expenses, students inquiry and conversion growth & many
                 more.
               </p>
-              <button>View More</button>
+       <button className="view-more-button">View More</button>
             </div>
             <div class="grid-item">
               <i
@@ -223,26 +222,11 @@ const HomePage = () => {
                 app like attend online MCQ exams, attend live classes, check
                 exam, fees, attendance performance as well.
               </p>
-              <button>View More</button>
+       <button className="view-more-button">View More</button>
             </div>
-            <button>CHECK ALL FEATURES</button>
+            <button className="view-more-button">CHECK ALL FEATURES</button>
           </div>
         </section>
-
-        {/*  <section id="testimonials" className="testimonials">
-          <h2>What Our Clients Say</h2>
-          <div className="testimonial-item">
-            <p>
-              "CoachingPro helped me achieve my career goals faster than I ever
-              imagined."
-            </p>
-            <span>- John Doe</span>
-          </div>
-          <div className="testimonial-item">
-            <p>"The group coaching sessions were a game-changer for me."</p>
-            <span>- Jane Smith</span>
-          </div>
-        </section> */}
 
         <footer id="contact" className="footer">
           <div className="footer-content">

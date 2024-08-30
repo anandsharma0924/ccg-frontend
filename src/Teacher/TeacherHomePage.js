@@ -51,7 +51,7 @@ const TeacherHomePage = () => {
                 <Grid item xs={12} md={3} lg={3}>
                     <StyledPaper>
                         <img src={Students} alt="Students" />
-                        <Title>Class Students</Title>
+                        <Title>Class Students </Title>
                         <Data start={0} end={numberOfStudents} duration={2.5} />
                     </StyledPaper>
                 </Grid>

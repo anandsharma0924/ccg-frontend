@@ -68,8 +68,6 @@ const AdminDashboard = () => {
           <Toolbar />
           {/* This is where the child routes will be rendered */}
           <Outlet />
-   
-
         </Box>
       </Box>
     </div>
