@@ -420,8 +420,8 @@ const ShowClasses = () => {
     {
       icon: <AddCardIcon color="primary" />,
       name: "Add New Class",
-      action: () => navigate("addclass"),
-      
+      action: () => navigate("/Admin/dashboard/Admin/addclass"),
+
     },
 
     {
@@ -459,8 +459,8 @@ const ShowClasses = () => {
         setShowPopup={setShowPopup}
         showPopup={showPopup}
       />
+    
       <Outlet />
-
     </div>
   );
 };

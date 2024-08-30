@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   CssBaseline,
   Box,
@@ -10,9 +10,12 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { Outlet } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import { AppBar, Drawer } from "../Conponent/styles";
 import SideBar from "./SideBar";
+import ShowClasses from "./classRelated/ShowClasses";
+import AddClass from "./classRelated/AddClass";
+import ClassDetails from "./classRelated/ClassDetails";
 
 const AdminDashboard = () => {
   const [open, setOpen] = useState(false);
@@ -21,7 +24,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar open={open} position="absolute">
@@ -66,11 +69,10 @@ const AdminDashboard = () => {
         </Drawer>
         <Box component="main" sx={styles.boxStyled}>
           <Toolbar />
-          {/* This is where the child routes will be rendered */}
           <Outlet />
         </Box>
       </Box>
-    </div>
+    </React.Fragment>
   );
 };
 

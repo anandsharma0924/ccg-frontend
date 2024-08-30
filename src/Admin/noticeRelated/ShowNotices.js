@@ -19,6 +19,7 @@ const ShowNotices = () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/notice/all`);
                 setNoticesList(response.data);
+                console.log(response)
             } catch (err) {
                 setError(err.response ? err.response.data.message : "Failed to fetch notices");
             } finally {
@@ -38,8 +39,9 @@ const ShowNotices = () => {
     };
 
     const noticeColumns = [
+        { id: 'id', label: 'id', minWidth: 170 },
         { id: 'title', label: 'Title', minWidth: 170 },
-        { id: 'details', label: 'Details', minWidth: 100 },
+        { id: 'description', label: 'description', minWidth: 100 },
         { id: 'date', label: 'Date', minWidth: 170 },
     ];
 
@@ -47,10 +49,10 @@ const ShowNotices = () => {
         const date = new Date(notice.date);
         const dateString = date.toString() !== "Invalid Date" ? date.toISOString().substring(0, 10) : "Invalid Date";
         return {
+            id: notice.id,
             title: notice.title,
-            details: notice.details,
+            description: notice.description,
             date: dateString,
-            id: notice._id,
         };
     });
 
@@ -63,11 +65,12 @@ const ShowNotices = () => {
     const actions = [
         {
             icon: <NoteAddIcon color="primary" />, name: 'Add New Notice',
-            action: () => navigate("addnotice")
+            action: () => navigate("/Admin/dashboard/addnotice")
         },
         {
             icon: <DeleteIcon color="error" />, name: 'Delete All Notices',
             action: () => deleteHandler("all", "notices") // Assuming API supports deleting all notices at once
+
         }
     ];
 
@@ -80,9 +83,9 @@ const ShowNotices = () => {
     }
 
     return (
-        <div>
+        <React.Fragment>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-                <GreenButton variant="contained" onClick={() => navigate("addnotice" , )}>
+                <GreenButton variant="contained" onClick={() => navigate("/Admin/dashboard/addnotice" , )}>
                     Add Notice
                 </GreenButton>
             </Box>
@@ -97,7 +100,8 @@ const ShowNotices = () => {
                 <SpeedDialTemplate actions={actions} />
             </Paper>
             <Outlet/>
-        </div>
+
+        </React.Fragment>
     );
 };
 

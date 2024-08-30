@@ -42,7 +42,6 @@ import TeacherDetails from "./Admin/teacherRelated/TeacherDetails";
 import ClassDetails from "./Admin/classRelated/ClassDetails";
 import TeacherComplain from "./Teacher/TeacherComplain";
 
-
 function App() {
   return (
     <React.Fragment>
@@ -59,13 +58,18 @@ function App() {
           {/* AdminDashboard with child routes */}
           <Route path="/Admin/dashboard/*" element={<AdminDashboard />}>
             <Route index element={<AdminHomePage />} />
-            <Route path="Admin/notices" element={<ShowNotices />} >
-            <Route path="addnotice" element={<AddNotice />} /></Route>
-            <Route path="Admin/classes" element={<ShowClasses />}>
+            <Route path="Admin/notices" element={<ShowNotices />}/>
+          
+            <Route path="addnotice" element={<AddNotice />} />
+            {/* <Route path="Admin/classes" element={<ShowClasses />}>
               <Route path="addclass" element={<AddClass />}>
                 <Route path="class/:id" element={<ClassDetails />} />
               </Route>
-            </Route>
+            </Route> */}
+
+            <Route path="Admin/classes" element={<ShowClasses />} />
+            <Route path="Admin/addclass" element={<AddClass />} />
+            <Route path="Time/:id" element={<ClassDetails />} />
 
             <Route path="Admin/complains" element={<SeeComplains />} />
             <Route path="Admin/profile" element={<AdminProfile />} />

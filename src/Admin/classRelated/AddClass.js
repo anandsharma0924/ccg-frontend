@@ -24,10 +24,11 @@ const AddClass = () => {
       const response = await axios.post("http://localhost:5000/api/class/", {
         name: className,     
       });
+      const classId = response.data.classs.id;
   console.log(response ,"responseee")
       if (response.status === 201) {
+        navigate(`/Admin/dashboard/Time/${classId}`);
         console.log(response.data);
-        navigate(`class/${response.data.classs.id}`);
       }
     } catch (error) {
       setMessage(error.response?.data?.message || "Network Error");
