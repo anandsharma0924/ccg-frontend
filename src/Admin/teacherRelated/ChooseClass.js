@@ -15,7 +15,6 @@ const ChooseClass = ({ situation }) => {
         const fetchClasses = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/classes/');
-                console.log(response , "res")
                 setSclassesList(response.data);
             } catch (err) {
                 setError(err.message);

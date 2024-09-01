@@ -119,7 +119,7 @@ const ShowStudents = () => {
     const actions = [
         {
             icon: <PersonAddAlt1Icon color="primary" />, name: 'Add New Student',
-            action: () => navigate("/Admin/addstudents")
+            action: () => navigate("Admin/dashboard/addstudents")
         },
         {
             icon: <PersonRemoveIcon color="error" />, name: 'Delete All Students',
@@ -134,7 +134,7 @@ const ShowStudents = () => {
             ) : (
                 <>
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-                        <GreenButton variant="contained" onClick={() => navigate("/Admin/addstudents")}>
+                        <GreenButton variant="contained" onClick={() => navigate("Admin/dashboard/addstudents")}>
                             Add Students
                         </GreenButton>
                     </Box>

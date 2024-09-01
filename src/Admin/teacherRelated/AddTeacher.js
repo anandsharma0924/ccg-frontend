@@ -1,3 +1,4 @@
+// AddTeacher.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -12,12 +13,9 @@ const AddTeacher = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState('');
   const [loader, setLoader] = useState(false);
-
-  const role = 'Teacher';
 
   useEffect(() => {
     const fetchSubjectDetails = async () => {
@@ -40,10 +38,8 @@ const AddTeacher = () => {
       name,
       email,
       password,
-      role,
-      school: subjectDetails?.school,
-      teachSubject: subjectDetails?._id,
-      teachSclass: subjectDetails?.sclassName?._id,
+      subject: subjectDetails?.subName,
+      classId: subjectDetails?.sclassName?._id,
     };
 
     try {
@@ -52,6 +48,7 @@ const AddTeacher = () => {
     } catch (error) {
       setMessage(error.response?.data?.message || 'Network Error');
       setShowPopup(true);
+    } finally {
       setLoader(false);
     }
   };

@@ -24,7 +24,7 @@ const ChooseSubject = ({ situation }) => {
                 const classID = params.id || params.classID;
                 setClassID(classID);
 console.log(classID , "classIDclassID")
-                const response = await axios.get(`http://localhost:5000/api/subjects/${classID}`);
+                const response = await axios.get(`http://localhost:5000/api/subjects/`);
                 console.log(response.data, "responsee")
                 setSubjectsList(response.data);
                 
@@ -94,17 +94,17 @@ console.log(classID , "classIDclassID")
                     </TableHead>
                     <TableBody>
                         {Array.isArray(subjectsList) && subjectsList.length > 0 && subjectsList.map((subject, index) => (
-                            <StyledTableRow key={subject._id}>
+                            <StyledTableRow key={subject.id}>
                                 <StyledTableCell component="th" scope="row" style={{ color: "white" }}>
                                     {index + 1}
                                 </StyledTableCell>
-                                <StyledTableCell align="center">{subject.subName}</StyledTableCell>
-                                <StyledTableCell align="center">{subject.subCode}</StyledTableCell>
+                                <StyledTableCell align="center">{subject.subjectName}</StyledTableCell>
+                                <StyledTableCell align="center">{subject.code}</StyledTableCell>
                                 <StyledTableCell align="center">
                                     {situation === "Norm" ? (
                                         <GreenButton
                                             variant="contained"
-                                            onClick={() => navigate("/Admin/teachers/addteacher/" + subject._id)}
+                                            onClick={() => navigate(`/Admin/dashboard/teachers/addteacher/${subject.id}` )}
                                         >
                                             Choose
                                         </GreenButton>

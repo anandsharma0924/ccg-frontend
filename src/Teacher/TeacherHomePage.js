@@ -13,7 +13,7 @@ const TeacherHomePage = () => {
     const [subjectDetails, setSubjectDetails] = useState({});
     const [sclassStudents, setSclassStudents] = useState([]);
     
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')); // Assuming user data is stored in localStorage
+    const currentUser = JSON.parse(localStorage.getItem('currentUser')); 
 
     const classID = currentUser?.teachSclass?._id;
     const subjectID = currentUser?.teachSubject?._id;
@@ -31,6 +31,7 @@ const TeacherHomePage = () => {
         const fetchClassStudents = async () => {
             try {
                 const response = await axios.get(`/api/classStudents/${classID}`);
+                console.log(response,"response")
                 setSclassStudents(response.data);
             } catch (error) {
                 console.error('Error fetching class students:', error);

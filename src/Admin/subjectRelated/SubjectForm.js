@@ -12,48 +12,44 @@ const SubjectForm = () => {
     
     const navigate = useNavigate();
 
-    // Update subject fields based on input
     const handleSubjectChange = (index, field) => (event) => {
         const newSubjects = [...subjects];
         newSubjects[index][field] = event.target.value;
         setSubjects(newSubjects);
     };
 
-    // Add a new subject input
     const handleAddSubject = () => {
         setSubjects([...subjects, { subjectName: "", code: "", session: "" }]);
     };
 
-    // Remove a specific subject input
     const handleRemoveSubject = (index) => () => {
         const newSubjects = [...subjects];
         newSubjects.splice(index, 1);
         setSubjects(newSubjects);
     };
 
-    // Form submission handler
     const submitHandler = async (event) => {
         event.preventDefault();
         setLoader(true);
-        const fields = {
-            subjects: subjects.map((subject) => ({
-                subjectName: subject.subjectName,
-                code: subject.code,
-                session: parseInt(subject.session, 10) || 0,
-            })),
-        };
-
+        
         try {
-            const response = await axios.post('http://localhost:5000/api/subjects/', fields);
-            console.log(response , "u")
-            if (response.status === 201) {
-                navigate("/Admin/dashboard/Admin/subjects");
-            } else {
-                setMessage(response.data.message || "Failed to add subjects");
-                setShowPopup(true);
+            for (const subject of subjects) {
+                const payload = {
+                    subjectName: subject.subjectName,
+                    code: subject.code,
+                    session: parseInt(subject.session, 10) || 0,
+                };
+
+                const response = await axios.post('http://localhost:5000/api/subjects/', payload);
+console.log(response)
+                if (response.status !== 200) {
+                    throw new Error(response.data.message || "Failed to add subject");
+                }
             }
+            
+            navigate("/Admin/dashboard/Admin/subjects");
         } catch (error) {
-            setMessage(error.response?.data?.message || "Network Error");
+            setMessage(error.message || "Network Error");
             setShowPopup(true);
         } finally {
             setLoader(false);
@@ -84,7 +80,7 @@ const SubjectForm = () => {
                                 fullWidth
                                 label="Subject Code"
                                 variant="outlined"
-                                type="number"
+                                type="text"
                                 value={subject.code}
                                 onChange={handleSubjectChange(index, "code")}
                                 sx={styles.inputField}

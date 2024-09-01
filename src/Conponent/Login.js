@@ -31,7 +31,7 @@ const Login = ({ role }) => {
         apiUrl = 'http://localhost:5000/api/admin/login';
         break;
       case 'Student':
-        apiUrl = 'http://localhost:5000/api/student/login';
+        apiUrl = 'http://localhost:5000/api/students/login';
         break;
       case 'Teacher':
         apiUrl = 'http://localhost:5000/api/teachers/login';

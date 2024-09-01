@@ -4,47 +4,37 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Popup from '../../Conponent/Popup';  // Update the path according to your project structure
 
-const AnotherComponent = () => {
-    const [data, setData] = useState([{ fieldName: "", fieldCode: "", fieldSession: "" }]);
+const AddStudent = () => {
+    const [student, setStudent] = useState({
+        StudentName: "",
+        email: "",
+        password: "",
+        age: "",
+        address: ""
+    });
     const [showPopup, setShowPopup] = useState(false);
     const [message, setMessage] = useState("");
     const [loader, setLoader] = useState(false);
     
     const navigate = useNavigate();
 
-    const handleFieldChange = (index, field) => (event) => {
-        const newData = [...data];
-        newData[index][field] = event.target.value;
-        setData(newData);
+    // Handle input field changes
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setStudent({ ...student, [name]: value });
     };
 
-    const handleAddField = () => {
-        setData([...data, { fieldName: "", fieldCode: "", fieldSession: "" }]);
-    };
-
-    const handleRemoveField = (index) => () => {
-        const newData = [...data];
-        newData.splice(index, 1);
-        setData(newData);
-    };
-
+    // Form submission handler
     const submitHandler = async (event) => {
         event.preventDefault();
         setLoader(true);
-        const fields = {
-            data: data.map((item) => ({
-                fieldName: item.fieldName,
-                fieldCode: item.fieldCode,
-                fieldSession: parseInt(item.fieldSession, 10) || 0,
-            })),
-        };
 
         try {
-            const response = await axios.post('http://localhost:5000/api/data/', fields);  // Update API URL accordingly
+            const response = await axios.post('http://localhost:5000/api/students', student);  // Update API URL accordingly
             if (response.status === 201) {
-                navigate("/somewhere");  // Update navigation path
+                navigate("/students");  // Update navigation path as needed
             } else {
-                setMessage(response.data.message || "Failed to add data");
+                setMessage(response.data.message || "Failed to add student");
                 setShowPopup(true);
             }
         } catch (error) {
@@ -58,70 +48,73 @@ const AnotherComponent = () => {
     return (
         <form onSubmit={submitHandler}>
             <Box mb={2}>
-                <Typography variant="h6">Add student</Typography>
+                <Typography variant="h6">Add Student</Typography>
             </Box>
             <Grid container spacing={2}>
-                {data.map((item, index) => (
-                    <React.Fragment key={index}>
-                        <Grid item xs={4}>
-                            <TextField
-                                fullWidth
-                                label="Student Name"
-                                variant="outlined"
-                                value={item.fieldName}
-                                onChange={handleFieldChange(index, "fieldName")}
-                                sx={styles.inputField}
-                                required
-                            />
-                        </Grid>
-                        <Grid item xs={4}>
-                            <TextField
-                                fullWidth
-                                label="Student Code"
-                                variant="outlined"
-                                type="number"
-                                value={item.fieldCode}
-                                onChange={handleFieldChange(index, "fieldCode")}
-                                sx={styles.inputField}
-                                required
-                            />
-                        </Grid>
-                        <Grid item xs={4}>
-                            <TextField
-                                fullWidth
-                                label="student Session"
-                                variant="outlined"
-                                type="number"
-                                inputProps={{ min: 0 }}
-                                value={item.fieldSession}
-                                onChange={handleFieldChange(index, "fieldSession")}
-                                sx={styles.inputField}
-                                required
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Box display="flex" alignItems="flex-end">
-                                {index === 0 ? (
-                                    <Button
-                                        variant="outlined"
-                                        color="primary"
-                                        onClick={handleAddField}
-                                    >
-                                        Add Student
-                                    </Button>
-                                ) : (
-                                    <Button
-                                        variant="outlined"
-                                        color="error"
-                                        onClick={handleRemoveField(index)}
-                                    >
-                                        Remove
-                                    </Button>
-                                )}
-                            </Box>
-                        </Grid>
-                    </React.Fragment>
-                ))}
+                <Grid item xs={6}>
+                    <TextField
+                        fullWidth
+                        label="Student Name"
+                        variant="outlined"
+                        name="StudentName"
+                        value={student.StudentName}
+                        onChange={handleChange}
+                        sx={styles.inputField}
+                        required
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField
+                        fullWidth
+                        label="Email"
+                        variant="outlined"
+                        name="email"
+                        type="email"
+                        value={student.email}
+                        onChange={handleChange}
+                        sx={styles.inputField}
+                        required
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField
+                        fullWidth
+                        label="Password"
+                        variant="outlined"
+                        name="password"
+                        type="password"
+                        value={student.password}
+                        onChange={handleChange}
+                        sx={styles.inputField}
+                        required
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField
+                        fullWidth
+                        label="Age"
+                        variant="outlined"
+                        name="age"
+                        type="number"
+                        inputProps={{ min: 0 }}
+                        value={student.age}
+                        onChange={handleChange}
+                        sx={styles.inputField}
+                        required
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField
+                        fullWidth
+                        label="Address"
+                        variant="outlined"
+                        name="address"
+                        value={student.address}
+                        onChange={handleChange}
+                        sx={styles.inputField}
+                        required
+                    />
+                </Grid>
                 <Grid item xs={12}>
                     <Box display="flex" justifyContent="flex-end">
                         <Button variant="contained" color="primary" type="submit" disabled={loader}>
@@ -133,13 +126,13 @@ const AnotherComponent = () => {
                         </Button>
                     </Box>
                 </Grid>
-                <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
             </Grid>
+            <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
         </form>
     );
 }
 
-export default AnotherComponent;
+export default AddStudent;
 
 const styles = {
     inputField: {
@@ -151,3 +144,5 @@ const styles = {
         },
     },
 };
+
+

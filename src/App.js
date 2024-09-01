@@ -44,6 +44,8 @@ import ViewStudent from "./Admin/studentRelated/ViewStudent";
 import SubjectForm from "./Admin/subjectRelated/SubjectForm";
 import AddStudent from "./Admin/studentRelated/AddStudent";
 import ChooseSubject from './Admin/teacherRelated/ChooseSubject'
+// import AddTeacher from './teacherRelated/AddTeacher';
+import AddTeacher from "./Admin/teacherRelated/AddTeacher";
 
 
 
@@ -99,8 +101,12 @@ function App() {
               path="teachers/choosesubject/:id"
               element={<ChooseSubject situation="Norm" />}
             />
-
+            <Route path="teachers/addteacher/:id" element={<AddTeacher />} />
+            <Route path="addstudents" element={<AddStudent situation="Student" />} />
+            
+            
             {/* <Route path="classes" element={<AddClass />} /> */}
+            <Route path="Admin/teachers/chooseclass" element={<ChooseClass situation="Teacher" />} />
             {/* Add other routes as needed */}
 
             <Route path="logout" element={<Logout />} />
