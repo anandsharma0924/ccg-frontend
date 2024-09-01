@@ -19,7 +19,7 @@ const AdminHomePage = () => {
     const fetchData = async () => {
       try {
         const studentsRes = await axios.get(
-          `http://localhost:5000/api/student/`
+          `http://localhost:5000/api/students/`
         );
         const classesRes = await axios.get(
           `http://localhost:5000/api/teachers/`
@@ -29,7 +29,6 @@ const AdminHomePage = () => {
           `http://localhost:5000/api/teachers/`
         );
 
-        // console.log(teachersRes , "teachersRes")
         setStudentsList(studentsRes.data);
         setSclassesList(classesRes.data);
         setTeachersList(teachersRes.data);

@@ -53,7 +53,7 @@ const ShowTeachers = () => {
 
   const columns = [
     { id: "name", label: "Name", minWidth: 170 },
-    { id: "email", label: "Email", minWidth: 170 }, // New column for email
+    { id: "email", label: "Email", minWidth: 170 }, 
     { id: "teachSubject", label: "Subject", minWidth: 100 },
     { id: "teachSclass", label: "Class", minWidth: 170 },
   ];
@@ -68,7 +68,7 @@ const ShowTeachers = () => {
     {
       icon: <PersonAddAlt1Icon color="primary" />,
       name: "Add New Teacher",
-      action: () => navigate("Admin/teachers/chooseclass"),
+      action: () => navigate("/Admin/dashboard/Admin/teachers/chooseclass"),
     },
     {
       icon: <PersonRemoveIcon color="error" />,

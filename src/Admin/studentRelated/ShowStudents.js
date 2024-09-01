@@ -24,7 +24,8 @@ const ShowStudents = () => {
         const fetchStudents = async () => {
             try {
                 // const response = await axios.get(`/api/students/${currentUser._id}`);
-                const response = await axios.get(`http://localhost:5000/api/student/`);
+                const response = await axios.get(`http://localhost:5000/api/students/`);
+                console.log(response)
                 setStudentsList(response.data);
             } catch (error) {
                 console.error(error);
@@ -41,14 +42,14 @@ const ShowStudents = () => {
     };
 
     const studentColumns = [
-        { id: 'name', label: 'Name', minWidth: 170 },
-        { id: 'rollNum', label: 'Roll Number', minWidth: 100 },
+        { id: 'StudentName', label: 'StudentName', minWidth: 170 },
+        { id: 'rollNumber', label: 'Roll Number', minWidth: 100 },
         { id: 'sclassName', label: 'Class', minWidth: 170 },
     ];
 
     const studentRows = studentsList.map((student) => ({
-        name: student.name,
-        rollNum: student.rollNum,
+        StudentName: student.StudentName,
+        rollNumber: student.rollNumber,
         sclassName: student.sclassName,
         id: student._id,
     }));

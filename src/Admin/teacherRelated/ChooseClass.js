@@ -10,14 +10,13 @@ const ChooseClass = ({ situation }) => {
     const [sclassesList, setSclassesList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [getresponse, setGetresponse] = useState(false); // Replace this if needed with appropriate condition
 
     useEffect(() => {
         const fetchClasses = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/sclasses');
+                const response = await axios.get('http://localhost:5000/api/classes/');
+                console.log(response , "res")
                 setSclassesList(response.data);
-                setGetresponse(true); // Set based on response if needed
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -30,7 +29,7 @@ const ChooseClass = ({ situation }) => {
 
     const navigateHandler = (classID) => {
         if (situation === "Teacher") {
-            navigate(`Admin/teachers/choosesubject/${classID}`);
+            navigate(`/Admin/dashboard/teachers/choosesubject/${classID}`);
         } else if (situation === "Subject") {
             navigate(`/Admin/addsubject/${classID}`);
         }
@@ -41,47 +40,42 @@ const ChooseClass = ({ situation }) => {
     ];
 
     const sclassRows = sclassesList.map((sclass) => ({
-        name: sclass.sclassName,
-        id: sclass._id,
+        name: sclass.name,
+        id: sclass.id,
     }));
 
     const SclassButtonHaver = ({ row }) => (
-        <div>
-            <PurpleButton variant="contained" onClick={() => navigateHandler(row.id)}>
-                Choose
-            </PurpleButton>
-        </div>
+        <PurpleButton variant="contained" onClick={() => navigateHandler(row.id)}>
+            Choose
+        </PurpleButton>
     );
 
-    // Handle error state rendering
     if (error) {
-        console.log(error);
-        return <div>Error: {error}</div>;
+        return <Typography color="error">Error: {error}</Typography>;
     }
 
     return (
         <>
             {loading ? (
-                <div>Loading...</div>
+                <Typography>Loading...</Typography>
             ) : (
-                <>
-                    {getresponse ? (
-                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-                            <Button variant="contained" onClick={() => navigate("/Admin/addclass")}>
-                                Add Class
-                            </Button>
-                        </Box>
-                    ) : (
+                <Box sx={{ display: 'flex', flexDirection: 'column', marginTop: '16px' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
+                        <Button variant="contained" onClick={() => navigate("/Admin/addclass")}>
+                            Add Class
+                        </Button>
+                    </Box>
+                    {Array.isArray(sclassesList) && sclassesList.length > 0 ? (
                         <>
-                            <Typography variant="h6" gutterBottom component="div">
+                            <Typography variant="h6" gutterBottom>
                                 Choose a class
                             </Typography>
-                            {Array.isArray(sclassesList) && sclassesList.length > 0 && (
-                                <TableTemplate buttonHaver={SclassButtonHaver} columns={sclassColumns} rows={sclassRows} />
-                            )}
+                            <TableTemplate buttonHaver={SclassButtonHaver} columns={sclassColumns} rows={sclassRows} />
                         </>
+                    ) : (
+                        <Typography>No classes available.</Typography>
                     )}
-                </>
+                </Box>
             )}
         </>
     );

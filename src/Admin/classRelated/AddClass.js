@@ -21,12 +21,13 @@ const AddClass = () => {
     setLoader(true);         
   
     try {
-      const response = await axios.post("http://localhost:5000/api/class/", {
+      const response = await axios.post("http://localhost:5000/api/classes/", {
         name: className,     
       });
-      const classId = response.data.classs.id;
-  console.log(response ,"responseee")
-      if (response.status === 201) {
+      console.log(response)
+      const classId = response.data.id;
+      if (response.status === 200) {
+        console.log(classId , "classId")
         navigate(`/Admin/dashboard/Time/${classId}`);
         console.log(response.data);
       }

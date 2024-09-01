@@ -23,9 +23,9 @@ const ShowSubjects = () => {
     useEffect(() => {
         const fetchSubjects = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/subject/');
+                const response = await axios.get('http://localhost:5000/api/subjects/');
                 setSubjectsList(response.data);
-                console.log(response , "response")
+                console.log(response, "response");
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -36,25 +36,47 @@ const ShowSubjects = () => {
         fetchSubjects();
     }, []);
 
-    const deleteHandler = (deleteID, address) => {
-        console.log(deleteID);
-        console.log(address);
-        setMessage("Sorry, the delete function has been disabled for now.");
-        setShowPopup(true);
-            
+    const deleteHandler = async (deleteID, address) => {
+        if (!deleteID) {
+            setMessage("Sorry, the delete function has been disabled for now.");
+            setShowPopup(true);
+            return;
+        }
+
+        try {
+            await axios.delete(`http://localhost:5000/api/subjects/${deleteID}`);
+            setSubjectsList(subjectsList.filter(subject => subject.id !== deleteID));
+            setMessage("Subject deleted successfully.");
+        } catch (err) {
+            setMessage(`Error: ${err.message}`);
+        } finally {
+            setShowPopup(true);
+        }
+    };
+
+    const deleteAllSubjects = async () => {
+        try {
+            await axios.delete('http://localhost:5000/api/subjects/');
+            setSubjectsList([]); // Clear the subjects list
+            setMessage("All subjects have been deleted.");
+        } catch (err) {
+            setMessage(`Error: ${err.message}`);
+        } finally {
+            setShowPopup(true);
+        }
     };
 
     const subjectColumns = [
-        { id: 'subjectName', label: 'subject Name', minWidth: 170 },
+        { id: 'subjectName', label: 'Subject Name', minWidth: 170 },
         { id: 'sessions', label: 'Sessions', minWidth: 170 },
         { id: 'sclassName', label: 'Class', minWidth: 170 },
     ];
 
     const subjectRows = subjectsList.map((subject) => ({
-       
         subjectName: subject.subjectName,
-        sessions: subject.session ,
-     
+        sessions: subject.session,
+        sclassName: subject.sclassName, // Adjust if necessary
+        id: subject.id // Ensure `id` is included for deletion
     }));
 
     const SubjectsButtonHaver = ({ row }) => (
@@ -72,11 +94,11 @@ const ShowSubjects = () => {
     const actions = [
         {
             icon: <PostAddIcon color="primary" />, name: 'Add New Subject',
-            action: () => navigate("Admin/subjects/chooseclass")
+            action: () => navigate("/Admin/dashboard/chooseclass")
         },
         {
             icon: <DeleteIcon color="error" />, name: 'Delete All Subjects',
-            action: () => deleteHandler(null, "Subjects")
+            action: deleteAllSubjects // Call the deleteAllSubjects function
         }
     ];
 
@@ -87,7 +109,7 @@ const ShowSubjects = () => {
         <div>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
                 <GreenButton variant="contained"
-                    onClick={() => navigate("Admin/subjects/chooseclass")}>
+                    onClick={() => navigate("/Admin/dashboard/chooseclass")}>
                     Add Subjects
                 </GreenButton>
             </Box>

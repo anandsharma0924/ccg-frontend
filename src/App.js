@@ -38,9 +38,15 @@ import StudentComplain from "./Student/StudentComplain";
 import StudentSubjects from "./Student/StudentSubjects";
 import ChooseClass from "./Admin/teacherRelated/ChooseClass";
 import TeacherDetails from "./Admin/teacherRelated/TeacherDetails";
-// import ClassDetails from './classRelated/ClassDetails';
 import ClassDetails from "./Admin/classRelated/ClassDetails";
 import TeacherComplain from "./Teacher/TeacherComplain";
+import ViewStudent from "./Admin/studentRelated/ViewStudent";
+import SubjectForm from "./Admin/subjectRelated/SubjectForm";
+import AddStudent from "./Admin/studentRelated/AddStudent";
+import ChooseSubject from './Admin/teacherRelated/ChooseSubject'
+
+
+
 
 function App() {
   return (
@@ -58,8 +64,8 @@ function App() {
           {/* AdminDashboard with child routes */}
           <Route path="/Admin/dashboard/*" element={<AdminDashboard />}>
             <Route index element={<AdminHomePage />} />
-            <Route path="Admin/notices" element={<ShowNotices />}/>
-          
+            <Route path="Admin/notices" element={<ShowNotices />} />
+
             <Route path="addnotice" element={<AddNotice />} />
             {/* <Route path="Admin/classes" element={<ShowClasses />}>
               <Route path="addclass" element={<AddClass />}>
@@ -76,6 +82,23 @@ function App() {
             <Route path="Admin/subjects" element={<ShowSubjects />} />
             <Route path="Admin/students" element={<ShowStudents />} />
             <Route path="Admin/teachers" element={<ShowTeachers />} />
+            <Route
+              path="chooseclass"
+              element={<ChooseClass situation="Teacher" />}
+            />
+            <Route
+              path="Admin/class/subject/:id/:id"
+              element={<ViewStudent />}
+            />
+            <Route path="Admin/addsubject/:id" element={<SubjectForm />} />
+            <Route
+              path="class/addstudents/:id"
+              element={<AddStudent situation="Class" />}
+            />
+            <Route
+              path="teachers/choosesubject/:id"
+              element={<ChooseSubject situation="Norm" />}
+            />
 
             {/* <Route path="classes" element={<AddClass />} /> */}
             {/* Add other routes as needed */}
@@ -92,7 +115,7 @@ function App() {
               element={<TeacherDetails />}
             />
             <Route
-              path="Admin/subjects/chooseclass"
+              path="chooseclass"
               element={<ChooseClass situation="Subject" />}
             />
             <Route path="Teacher/complain" element={<TeacherComplain />} />

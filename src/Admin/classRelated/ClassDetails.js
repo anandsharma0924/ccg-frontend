@@ -81,7 +81,8 @@ const ClassDetails = () => {
             </IconButton>
             <BlueButton
                 variant="contained"
-                onClick={() => navigate(`/Admin/class/subject/${classID}/${row.id}`)}
+                // onClick={() => navigate(`/Admin/class/subject/${classID}/${row.id}`)}
+                onClick={() => navigate(`class/subject/1/1`)}
             >
                 View
             </BlueButton>
@@ -91,7 +92,8 @@ const ClassDetails = () => {
     const subjectActions = [
         {
             icon: <PostAddIcon color="primary" />, name: 'Add New Subject',
-            action: () => navigate(`/Admin/addsubject/${classID}`)
+            // action: () => navigate(`/Admin/addsubject/${classID}`)
+            action: () => navigate(`/Admin/dashboard/Admin/addsubject/1`)
         },
         {
             icon: <DeleteIcon color="error" />, name: 'Delete All Subjects',
@@ -130,7 +132,7 @@ const ClassDetails = () => {
     const studentRows = sclassStudents.map((student) => ({
         name: student.name,
         rollNum: student.rollNum,
-        id: student._id,
+        id: student.id,
     }));
 
     const StudentsButtonHaver = ({ row }) => (
@@ -142,7 +144,7 @@ const ClassDetails = () => {
                 variant="contained"
                 onClick={() => navigate(`/Admin/students/student/${row.id}`)}
             >
-                View
+                Vieww
             </BlueButton>
             <PurpleButton
                 variant="contained"
@@ -156,7 +158,7 @@ const ClassDetails = () => {
     const studentActions = [
         {
             icon: <PersonAddAlt1Icon color="primary" />, name: 'Add New Student',
-            action: () => navigate(`/Admin/class/addstudents/${classID}`)
+            action: () => navigate(`/Admin/dashboard/class/addstudents/${classID}`)
         },
         {
             icon: <PersonRemoveIcon color="error" />, name: 'Delete All Students',
